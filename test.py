@@ -81,5 +81,9 @@ if __name__ == '__main__':
           }
       }
     """)
+    test("""
+      &x = "str" transform :uppercase
+      x write-to :stdout
+    """)
 
 

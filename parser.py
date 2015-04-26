@@ -73,6 +73,6 @@ class Parser(object):
             
         return expressions, index
     def parse(self, tokens, index=0):
-        return self.expressions(tokens, index)[0]
+        return Block(self.expressions(tokens, index)[0])
 
 
