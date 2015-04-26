@@ -120,8 +120,11 @@ class Lexer(object):
             elif c == '&':
                 t = Token(Token.NAME, state.named(end = Lexer.SPECIAL_CHARACTERS))
                 tokens.append(t)
-            elif c == '"' or c == "'":
-                t = Token(Token.STRING, state.delimited(end = '"' + "'"))
+            elif c == '"':
+                t = Token(Token.STRING, state.delimited(end = '"'))
+                tokens.append(t)
+            elif c == "'":
+                t = Token(Token.STRING, state.delimited(end = "'"))
                 tokens.append(t)
             else:
                 t = Token(Token.IDENTIFIER, c + state.named(end = Lexer.SPECIAL_CHARACTERS))
