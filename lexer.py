@@ -37,13 +37,13 @@ class Token(object):
             return '"%s"' % self.value
         elif self.type == Token.IDENTIFIER:
             return self.value
-        elif self.type == OPEN_PARENTHESIS:
+        elif self.type == Token.OPEN_PARENTHESIS:
             return '('
-        elif self.type == CLOSE_PARENTHESIS:
+        elif self.type == Token.CLOSE_PARENTHESIS:
             return ')'
-        elif self.type == OPEN_BLOCK:
+        elif self.type == Token.OPEN_BLOCK:
             return '{'
-        elif self.type == CLOSE_BLOCK:
+        elif self.type == Token.CLOSE_BLOCK:
             return '}'
     def __repr__(self):
         if self.value is not None:

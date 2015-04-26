@@ -9,10 +9,7 @@ def fmt(v, level=0):
     if isinstance(v, Value):
         return str(v.token)
     elif isinstance(v, Expression):
-        if v.param is not None:
-            return '(%s %s %s)' % (fmt(v.target, level), fmt(v.action, level), fmt(v.param, level))
-        else:
-            return '(%s %s)' % (fmt(v.target, level), fmt(v.action, level))
+        return '(%s %s)' % (fmt(v.target, level), fmt(v.action, level))
     elif isinstance(v, Block):
         return '{\n' + fmt(v.expressions, level + 1) + '\n' + indent + '}'
     elif isinstance(v, list):
