@@ -62,7 +62,7 @@ if __name__ == '__main__':
                       $ method &block with { block }
                   }
               }
-          }
+          })
     """)
     test("""
       &Keyword = Object clone {
