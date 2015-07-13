@@ -20,6 +20,10 @@ class Token(object):
     def __init__(self, type, value):
         self.type = type
         self.value = value
+    def __eq__(self, other):
+        return self.type == other.type and self.value == other.value
+    def __hash__(self):
+        return hash(self.type) ^ hash(self.value)
     def __str__(self):
         if self.type == Token.SEPARATOR:
             return ' '

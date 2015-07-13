@@ -7,18 +7,15 @@ class Block(object):
     def __repr__(self):
         return '{%s}' % ', '.join(repr(x) for x in self.expressions)
 
-class Value(object):
-    def __init__(self, token):
-        self.token = token
-    def __repr__(self):
-        return '<%s>' % repr(self.token)
-
 class Expression(object):
     def __init__(self, target, action):
         self.target = target
         self.action = action
     def __repr__(self):
-        return '(%s %s)' % (repr(self.target), repr(self.action))
+        if self.action is None:
+            return '%s' % (repr(self.target))
+        else:
+            return '(%s %s)' % (repr(self.target), repr(self.action))
 
 class Parser(object):
     def next(self, tokens, index):
@@ -40,7 +37,7 @@ class Parser(object):
         elif token.type == Token.SEPARATOR:
             value = None
         else:
-            value = Value(token)
+            value = token
 
         return value, index
     def expression(self, tokens, index, end_type, target=None):
@@ -58,13 +55,13 @@ class Parser(object):
                 expr, index = self.expression(tokens, index, end_type, expr)
                 return expr, index
             else:
-                return target, index
+                expr = Expression(target, None)
+                return expr, index
         else:
-            return target, index
+            expr = Expression(target, None)
+            return expr, index
     def expressions(self, tokens, index, end_type):
         expressions = []
-
-        print end_type, 'hi'
 
         while index < len(tokens) and tokens[index].type != end_type:
             expr, index = self.expression(tokens, index, end_type or Token.SEPARATOR)

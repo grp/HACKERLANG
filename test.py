@@ -2,14 +2,18 @@
 import sys
 
 from lexer import Lexer, Token
-from parser import Parser, Block, Value, Expression
+from parser import Parser, Block, Expression
+from interpreter import Interpreter
 
 def fmt(v, level=0):
     indent = level * '  '
-    if isinstance(v, Value):
-        return str(v.token)
+    if isinstance(v, Token):
+        return str(v)
     elif isinstance(v, Expression):
-        return '(%s %s)' % (fmt(v.target, level), fmt(v.action, level))
+        if v.action is None:
+            return '%s' % (fmt(v.target, level))
+        else:
+            return '(%s %s)' % (fmt(v.target, level), fmt(v.action, level))
     elif isinstance(v, Block):
         return '{\n' + fmt(v.expressions, level + 1) + '\n' + indent + '}'
     elif isinstance(v, list):
@@ -23,12 +27,14 @@ def test(text):
     lexer = Lexer()
     tokens = lexer.tokenize(text)
     print tokens
+
     parser = Parser()
     ast = parser.parse(tokens)
     print ast
-
     print fmt(ast)
 
+    interpreter = Interpreter()
+    interpreter.interpret(ast, None)
 
 
 if __name__ == '__main__':
