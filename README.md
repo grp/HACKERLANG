@@ -1,6 +1,6 @@
 # HACKERLANG
 
-HACKERLANG is a cool language for HACKERs.
+HACKERLANG is a language for HACKERs.
 
 ## Syntax
 
